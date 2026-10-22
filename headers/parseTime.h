@@ -11,8 +11,30 @@ typedef struct {
 }
 AlarmTime;
 
+int toSeconds(AlarmTime t){
 
-void printAlarm(char * time) {
+	int seconds = 0;
+
+	if(!(t.hours || t.minutes || t.seconds)){
+	 	return 0;
+	}
+
+	if(t.hours > 0){
+		seconds += t.hours * 3600;
+	}	
+	if(t.minutes > 0){
+		seconds += t.minutes*60;
+	}
+	if(t.seconds > 0){
+		seconds += t.seconds;
+	}
+	
+	return seconds;
+}
+
+
+
+void printAlarm(int time) {
 
   // ascii art of clock
   char * clock[] = {
@@ -37,7 +59,7 @@ void printAlarm(char * time) {
   int mid_point = 6;
   for (size_t i = 0; i < clock_size; i++) {
     if (i == mid_point) {
-      printf("%s\n", time);
+      printf("%d\n", time);
     } else {
       printf(clock[i]);
     }
@@ -143,6 +165,45 @@ int isAlarm(clock_t start, clock_t now, float target_duration) {
     return 1;
   }
   return 0;
+}
+
+void timer(int seconds){
+
+    struct timespec start, now;
+
+    int prev_time = 0;
+    int running = 1;
+    int seconds_left = INT_MAX;
+
+    timespec_get(&start, TIME_UTC);
+
+    int target = seconds;
+    struct timespec delay = {.tv_sec = 0, .tv_nsec = 50000000};
+
+    clearTerminal(); // flush any previous user terminal usage before running the timer
+
+    while(running) {
+
+	thrd_sleep(&delay, NULL); // Sleep thread for delay amount
+        timespec_get(&now, TIME_UTC);
+
+        int time_in_seconds = (int)(now.tv_sec - start.tv_sec);
+
+        if(time_in_seconds > prev_time) {
+
+	    prev_time = time_in_seconds;
+
+            int seconds_left = target - time_in_seconds;
+            if (seconds_left >= 0){
+              	   printAlarm(seconds_left);
+                   clearTerminal();
+	    }
+        }
+
+        if(time_in_seconds >= target) {
+            running = 0;
+        }
+    }
 }
 
 #endif
