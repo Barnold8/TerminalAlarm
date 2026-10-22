@@ -7,7 +7,6 @@
 #include <limits.h>
 #include "../headers/parseTime.h"
 
-
 int main(int argc,const char * argv[]){
 
   if (argc < 2) {

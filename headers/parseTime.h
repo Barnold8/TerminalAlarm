@@ -32,11 +32,32 @@ int toSeconds(AlarmTime t){
 	return seconds;
 }
 
+AlarmTime toAlarmTime(int s){
 
+	int seconds, hours, minutes = -1;
+	AlarmTime t = {
+		-1,
+		-1,
+		-1,
+		-1
+	};
 
-void printAlarm(int time) {
+	minutes = s / 60;
+	seconds = s % 60;
+	hours   = minutes / 60;
+	minutes = minutes % 60; 
+
+	t.hours   = hours;
+	t.minutes = minutes;
+	t.seconds = seconds;
+
+	return t;
+}
+
+void printAlarm(int seconds) {
 
   // ascii art of clock
+  AlarmTime format_time = {0,0,0,-1};
   char * clock[] = {
     "       .--.\n",
     "  .-._;.--.;_.-.\n",
@@ -57,9 +78,12 @@ void printAlarm(int time) {
 
   size_t clock_size = sizeof(clock) / sizeof(clock[0]);
   int mid_point = 6;
+
   for (size_t i = 0; i < clock_size; i++) {
     if (i == mid_point) {
-      printf("%d\n", time);
+
+      format_time = toAlarmTime(seconds);
+      printf("||   %dH:%dM:%dS  ||\n",format_time.hours,format_time.minutes,format_time.seconds);
     } else {
       printf(clock[i]);
     }
