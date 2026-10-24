@@ -1,3 +1,6 @@
+
+#include <stdio.h>
+#include <stdlib.h>
 #include "../headers/parseTime.h"
 
 int toSeconds(AlarmTime t){

@@ -1,6 +1,12 @@
 #ifndef PARSETIME_H
 #define PARSETIME_H
 
+
+#include <time.h>
+#include <string.h>
+#include <math.h>
+#include <threads.h>
+#include <limits.h>
 #include "utils.h"
 
 typedef struct {
