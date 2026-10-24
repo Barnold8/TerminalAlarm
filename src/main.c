@@ -6,7 +6,7 @@
 #include <threads.h>
 #include <limits.h>
 #include "../headers/parseTime.h"
-#include "../headers/loadCommand.h"
+
 
 int main(int argc,const char * argv[]){
 
