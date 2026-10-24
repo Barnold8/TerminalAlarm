@@ -11,7 +11,7 @@
 int main(int argc,const char * argv[]){
 
   const char* USAGE = "Alarm <xxH:xxM:xxS> [command_to_run_when_alarm_finished]";
-  char* command;
+  const char* command = NULL;
 
   if (argc < 2) {
     printf("Error: no argument given\n");
@@ -20,7 +20,7 @@ int main(int argc,const char * argv[]){
   }
 
   if(argc == 3){
-    command = loadCommand(argv[3]); 
+    command =  argv[2];
   }
 
   AlarmTime user_time = argsToAlarmTime(argv[1]);
@@ -29,10 +29,10 @@ int main(int argc,const char * argv[]){
     printf("Error: could not parse time given\n");
     return -1;
   }
-
-//  int time_to_wait = toSeconds(user_time);
+  
+  int time_to_wait = toSeconds(user_time);
  
-  //timer(time_to_wait);
+  timer(time_to_wait,command);
   
   return 0;
 }

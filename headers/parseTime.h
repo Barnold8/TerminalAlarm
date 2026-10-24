@@ -191,7 +191,7 @@ int isAlarm(clock_t start, clock_t now, float target_duration) {
   return 0;
 }
 
-void timer(int seconds){
+void timer(int seconds, const char * command){
 
     struct timespec start, now;
 
@@ -228,6 +228,14 @@ void timer(int seconds){
             running = 0;
         }
     }
+
+
+    if(command != NULL){
+	system(command);
+    }else{
+    	printf("No command found\n");
+    }
+
 }
 
 #endif
