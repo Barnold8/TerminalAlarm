@@ -1,15 +1,8 @@
-#ifndef UTILS
-#define UITLS
+#ifndef UTILS_H
+#define UITLS_H
 
+int charIsNum(char c);
 
-int charIsNum(char c) {
-  return c < 58 && c > 47;
-}
-
-void clearTerminal(){
-
-	printf("\e[1;1H\e[2J"); 
-}
-
+void clearTerminal();
 
 #endif
